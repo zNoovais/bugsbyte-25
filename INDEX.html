@@ -4,306 +4,346 @@
     <meta charset="UTF-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Ajuda Continente</title>
+    <title>Chat Ajuda Peninsula</title>
     <style>
+        :root {
+            --continente-red: #eb0203;
+            --continente-dark-red: #c40202;
+            --continente-light-gray: #f5f5f5;
+            --continente-dark-gray: #333;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            background-color: var(--continente-light-gray);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-        }
-        .chat-container {
-            width: 350px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            overflow: hidden;
-            background: white;
-        }
-        .chat-container {
-            width: 350px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            overflow: hidden;
-            background: white;
-            transition: max-height 0.3s ease, opacity 0.3s ease; /* Smooth animation */
-            height: 429px; /* Default height (adjust as needed) */
-            opacity: 1; /* Fully visible */
+            margin: 0;
         }
         
-        .chat-container.hidden {
-            max-height: 50px; /* Only show the header */
-            opacity: 1; /* Keep the header visible */
-            overflow: hidden; /* Hide content below the header */
+        .chat-container {
+            width: 450px;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            transition: all 0.3s ease-out;
+            max-height: 600px;
         }
+        
+        .chat-container.minimized {
+            max-height: 60px;
+            cursor: pointer;
+        }
+        
         .chat-header {
-            background: #eb0203;
+            background: var(--continente-red);
             color: white;
-            padding: 10px;
-            font-size: 18px;
+            padding: 15px 20px;
+            font-size: 20px;
             font-weight: bold;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 10px;
+            transition: padding 0.3s ease-out;
         }
-
-        .chat-header::after {
-            content: "";
-            font-size: 16px;
-            margin-left: auto;
+        
+        .chat-container.minimized .chat-header {
+            padding: 12px 20px;
         }
+        
         .botLogo {
-            width: 10%;
-            height: auto;
-            align-items: left;
-        }
-
-        .chat-header {
-            background: #eb0203;
-            color: white;
-            padding: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            display: flex; /* Use flexbox for alignment */
-            justify-content: space-between; /* Space between elements */
-            align-items: center; /* Center items vertically */
+            width: 30px;
+            height: 30px;
         }
         
         .close {
-            display: flex; /* Use flexbox to align items side by side */
-            gap: 10px; /* Add spacing between the icons */
-            margin-left: 100px; /* Push the icons to the right */
-            align-items: center; /* Vertically center the icons */
+            margin-left: auto;
+            display: flex;
+            gap: 15px;
         }
         
         .close a {
-            color: white; /* Make the icons white */
-            text-decoration: none; /* Remove underline */
-            font-size: 18px; /* Set the size of the icons */
-            cursor: pointer; /* Add a pointer cursor */
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
         }
         
         .close a:hover {
-            color: #ccc; /* Optional: Change color on hover */
+            transform: scale(1.1);
         }
-
+        
+        #pop-down-button i {
+            transition: transform 0.3s ease;
+        }
+        
+        .chat-container.minimized #pop-down-button i {
+            transform: rotate(180deg);
+        }
+        
+        .chat-messages {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 5px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+        
+        .user-message {
+            background: var(--continente-red);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .bot-message {
+            background: #f0f0f0;
+            color: var(--continente-dark-gray);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .input-area {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        textarea {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            resize: none;
+            font-family: Arial;
+            font-size: 14px;
+            min-height: 20px;
+            max-height: 100px;
+            transition: all 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--continente-red);
+            box-shadow: 0 0 0 2px rgba(235,2,3,0.2);
+        }
+        
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            padding: 0 15px 15px;
+            gap: 8px;
+        }
+        
+        .button {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+        
+        .button:hover {
+            background: #f9f9f9;
+            border-color: #ccc;
+        }
+        
         .session-expired {
-            background: darkblue;
+            background: #2c3e50;
             color: white;
             text-align: center;
             font-size: 14px;
-            padding: 10px;
-            margin: 0; /* Remove extra margin */
-            border-radius: 0; /* No rounded corners */
+            padding: 12px;
             font-weight: bold;
         }
         
         #close-chat {
-            background: #eb0203; /* Red background */
-            color: white; /* White text */
-            border: none; /* Remove border */
-            padding: 10px 20px; /* Add padding for better spacing */
-            border-radius: 5px; /* Rounded corners */
-            cursor: pointer; /* Pointer cursor */
-            font-size: 16px; /* Adjust font size */
-            text-align: center; /* Center the text */
-            width: 100%; /* Make the button full width */
-            margin-top: 10px; /* Add spacing above the button */
+            background: var(--continente-red);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+            transition: background 0.2s;
         }
         
         #close-chat:hover {
-            background: #d00000; /* Darker red on hover */
+            background: var(--continente-dark-red);
         }
-
-        .chat-messages {
-            padding: 10px;
-            height: 250px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .user-message {
-            background: #e6e6e6;
-            padding: 8px;
-            border-radius: 5px;
-            margin-bottom: 5px;
-            align-self: flex-end;
+        
+        .message {
+            animation: fadeIn 0.3s ease-out;
         }
-
-        .bot-message {
-            background: #f0f0f0;
-            padding: 8px;
-            border-radius: 5px;
-            margin-bottom: 5px;
-            align-self: flex-start;
+        
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
         }
-
-        .buttons {
-            display: flex;
-            flex-direction: column;
-            padding: 10px;
+        
+        .chat-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
         }
-
-        .button {
-            background: white;
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 5px 0;
-            text-align: center;
-            border-radius: 5px;
-            cursor: pointer;
+        
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
         }
-
-        .button:hover {
-            background: #f0f0f0;
-        }
-
-        textarea {
-            width: 85%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin: 40px 15px;
-            resize: none;
-        }
-
-        .textarea:hover {
-            background: rgb(107, 107, 107);
+        
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
         }
     </style>
 </head>
 <body>
-
     <div class="chat-container" id="chat-container">
         <div class="chat-header">
-            <img class="botLogo" src="https://modelocontinenteb2c.my.salesforce-sites.com/WebformAcelera/resource/1614729023000/LiveChat_logo" alt="Logo">
+            <img class="botLogo" src="https://modelocontinenteb2c.my.salesforce-sites.com/WebformAcelera/resource/1614729023000/LiveChat_logo" alt="Logo Continente">
             Ajuda Peninsula
             <div class="close">
-                <a href="#" id="pop-down-button">
-                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                <a href="#" id="pop-down-button" title="Minimizar">
+                    <i class="fas fa-window-minimize"></i>
                 </a>
-                <a href="#" id="refresh-button">
-                    <i class="fa-solid fa-rotate-right"></i>
+                <a href="#" id="refresh-button" title="Recarregar">
+                    <i class="fas fa-redo"></i>
                 </a>
             </div>
         </div>
+        
         <div class="chat-messages">
-            <div class="bot-message">Olá, como posso ajudar?</div>
+            <div class="message bot-message">Olá! Sou o assistente virtual do Peninsula. Como posso ajudar você hoje?</div>
         </div>
+        
         <div class="buttons">
             <div class="button" hidden>Encomendas Online</div>
-            <div class="button" hidden>Cartão Continente associado às Lojas Online</div>
-            <div class="button" hidden>2ª Via de fatura Online</div>
-            <div class="button" hidden>Folhetos</div>
-            <div class="button" hidden>Chamar Assistente virtual</div>
+            <div class="button" hidden>Cartão Continente</div>
+            <div class="button" hidden>2ª Via de Fatura</div>
+            <div class="button" hidden>Folhetos Digitais</div>
+            <div class="button" hidden>Falar com Atendente</div>
         </div>
-        <form>
-            <textarea name="Message" rows="1" placeholder="Escreve uma mensagem"></textarea>
-        </form>
+        
+        <div class="input-area">
+            <textarea name="Message" rows="1" placeholder="Digite sua mensagem..." id="chat-input"></textarea>
+        </div>
     </div>
-    <script>
-        const buttons = document.querySelectorAll(".button");
-        const chatMessages = document.querySelector(".chat-messages");
 
-        buttons.forEach(button => {
-            button.addEventListener("click", () => {
-                const message = document.createElement("div");
-                message.classList.add("user-message");
-                message.textContent = button.textContent;
-                chatMessages.appendChild(message);
-              
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            });
-        });
-    </script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const textarea = document.querySelector("textarea");
-            const chatMessages = document.querySelector(".chat-messages");
-    
-            textarea.addEventListener("keydown", function (event) {
-                if (event.key === "Enter" && !event.shiftKey) {
-                    event.preventDefault(); // Prevent a new line
-                    const message = document.createElement("div");
-                    message.classList.add("user-message");
-                    message.textContent = textarea.value.trim(); // Add the message text
-                    if (message.textContent) { // Only append if the message is not empty
-                        chatMessages.appendChild(message);
-                        chatMessages.scrollTop = chatMessages.scrollHeight;
-                        textarea.value = ""; // Clear the textarea
-                    }
+        const chatInput = document.getElementById('chat-input');
+        const chatMessages = document.querySelector('.chat-messages');
+        const buttons = document.querySelectorAll('.button');
+        
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+            messageDiv.textContent = text;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        chatInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                const message = chatInput.value.trim();
+                if (message) {
+                    addMessage(message, true);
+                    chatInput.value = '';
                 }
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const refreshButton = document.getElementById("refresh-button");
-    
-            // Add click event to refresh the page
-            refreshButton.addEventListener("click", function (event) {
-                event.preventDefault(); // Prevent default link behavior
-                location.reload(); // Refresh the page
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const popDownButton = document.getElementById("pop-down-button");
-            const chatContainer = document.getElementById("chat-container");
-    
-            // Add click event to toggle the chat container visibility
-            popDownButton.addEventListener("click", function (event) {
-                event.preventDefault(); // Prevent default link behavior
-                chatContainer.classList.toggle("hidden"); // Toggle the "hidden" class
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const textarea = document.querySelector("textarea");
-            const chatMessages = document.querySelector(".chat-messages");
-            const chatContainer = document.getElementById("chat-container");
-            let inactivityTimeout;
-    
-            // Function to show the inactivity warning
-            function showInactivityWarning() {
-                // Add the warning message
-                const warningMessage = document.createElement("div");
-                warningMessage.classList.add("session-expired");
-                warningMessage.textContent = "A sua sessão expirou devido a inatividade";
-                chatContainer.insertBefore(warningMessage, chatMessages);
-    
-                // Replace the textarea with a "Fechar Conversa" button
-                const form = document.querySelector("form");
-                form.innerHTML = `
-                    <button id="close-chat">Fechar Conversa</button>
-                `;
-    
-                // Add event listener to the "Fechar Conversa" button
-                const closeChatButton = document.getElementById("close-chat");
-                closeChatButton.addEventListener("click", function () {
-                    chatContainer.innerHTML = ""; // Clear the chat container
-                    alert("Conversa encerrada.");
-                });
             }
-    
-            // Reset inactivity timer
-            function resetInactivityTimer() {
-                clearTimeout(inactivityTimeout);
-                inactivityTimeout = setTimeout(showInactivityWarning, 60000); // 1 minute of inactivity
-            }
-    
-            // Detect user activity
-            textarea.addEventListener("keydown", resetInactivityTimer);
-            chatContainer.addEventListener("mousemove", resetInactivityTimer);
-            chatContainer.addEventListener("click", resetInactivityTimer);
-    
-            // Start the inactivity timer
-            resetInactivityTimer();
         });
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                addMessage(button.textContent, true);
+            });
+        });
+        
+        document.getElementById('refresh-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            location.reload();
+        });
+        
+        // Botão de minimizar com animação suave
+        document.getElementById('pop-down-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            const chatContainer = document.getElementById('chat-container');
+            const popDownButton = document.getElementById('pop-down-button');
+            
+            if (chatContainer.classList.contains('minimized')) {
+                // Reabrir
+                chatContainer.style.maxHeight = '600px';
+                setTimeout(() => {
+                    chatContainer.classList.remove('minimized');
+                    popDownButton.setAttribute('title', 'Minimizar');
+                }, 300);
+            } else {
+                // Minimizar
+                chatContainer.classList.add('minimized');
+                chatContainer.style.maxHeight = '60px';
+                popDownButton.setAttribute('title', 'Maximizar');
+            }
+        });
+        
+        let inactivityTimer;
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(showInactivityWarning, 120000);
+        }
+        
+        function showInactivityWarning() {
+            const warning = document.createElement('div');
+            warning.className = 'session-expired';
+            warning.textContent = 'Sua sessão expirará em 1 minuto por inatividade';
+            chatMessages.appendChild(warning);
+            
+            setTimeout(() => {
+                if (chatMessages.contains(warning)) {
+                    warning.textContent = 'Sessão encerrada por inatividade';
+                    const closeBtn = document.createElement('button');
+                    closeBtn.id = 'close-chat';
+                    closeBtn.textContent = 'Fechar Chat';
+                    closeBtn.addEventListener('click', () => {
+                        alert('Chat encerrado. Obrigado por entrar em contato!');
+                    });
+                    document.querySelector('.input-area').innerHTML = '';
+                    document.querySelector('.input-area').appendChild(closeBtn);
+                }
+            }, 60000);
+        }
+        
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(event => {
+            document.addEventListener(event, resetInactivityTimer);
+        });
+        
+        resetInactivityTimer();
     </script>
 </body>
 </html>
