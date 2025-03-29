@@ -77,5 +77,52 @@
         "selecionado": false
       }
     ]
+  },
+  {
+    "problema": "eu quero fazer um bacalhau a natas",
+    "tipo": "culinária",
+    "solucao": "Para fazer um bacalhau à brás, comece por demolhar o bacalhau em água por 24 horas, trocando a água várias vezes. Depois, cozinhe o bacalhau em água fervente até que fique macio. Desfie-o em pedaços pequenos. Em uma frigideira, refogue cebola picada e alho em azeite até dourar, adicione batatas palha e o bacalhau desfiado. Misture bem e adicione ovos batidos até que fiquem cozidos. Finalize com azeitonas e salsa picada.",
+    "materiais": [
+      {
+        "nome": "bacalhau",
+        "opcional": false,
+        "selecionado": true
+      },
+      {
+        "nome": "cebola",
+        "opcional": false,
+        "selecionado": true
+      },
+      {
+        "nome": "alho",
+        "opcional": false,
+        "selecionado": true
+      },
+      {
+        "nome": "azeite",
+        "opcional": false,
+        "selecionado": true
+      },
+      {
+        "nome": "batatas palha",
+        "opcional": false,
+        "selecionado": true
+      },
+      {
+        "nome": "ovos",
+        "opcional": false,
+        "selecionado": true
+      },
+      {
+        "nome": "azeitonas",
+        "opcional": true,
+        "selecionado": false
+      },
+      {
+        "nome": "salsa",
+        "opcional": true,
+        "selecionado": false
+      }
+    ]
   }
 ]
