@@ -8,7 +8,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["login.html"],  # Em produção, troque pelo domínio do seu frontend
+    allow_origins=["*"],  # Em produção, troque pelo domínio do seu frontend
     allow_methods=["POST"],
     allow_headers=["*"],
 )
