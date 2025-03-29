@@ -5,7 +5,7 @@ import normalizar
 
 # Tabela 1: Carregar o primeiro arquivo CSV
 try:
-    df1 = pd.read_csv('DataSet_MCSonae/sample_prod_info.csv', sep=';', encoding='utf-8')
+    df1 = pd.read_csv('DataSet_MCSonae/sample_prod_info-clean.csv', sep=';', encoding='utf-8')
     print("Primeiro arquivo CSV carregado com sucesso!")
     print("Colunas disponíveis no primeiro CSV:", df1.columns.tolist())  # Verificar colunas
     df1.columns = df1.columns.str.strip()  # Remover espaços extras
@@ -13,8 +13,12 @@ except FileNotFoundError:
     print("Erro: Primeiro arquivo não encontrado. Verifique o caminho.")
     exit()
 
+
+# Normalizar a coluna 'product_dsc' e criar uma nova coluna 'product_dsc_normalizado'
+df1['product_dsc_normalizado'] = df1['product_dsc'].apply(normalizar.normalizar_texto)
+
 # Selecionar apenas as colunas desejadas para a primeira tabela
-colunas_desejadas1 = ['sku', 'product_dsc', 'cat_cd', 'cat_dsc_ext', 'product_short_dsc', '20231226']
+colunas_desejadas1 = ['sku', 'product_dsc', 'cat_cd', 'cat_dsc_ext', 'product_short_dsc','20231219', '20231226','product_dsc_normalizado']
 df1 = df1[colunas_desejadas1]
 
 # Tabela 2: Carregar o segundo arquivo CSV
