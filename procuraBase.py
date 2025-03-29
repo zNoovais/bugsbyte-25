@@ -1,4 +1,6 @@
 import sqlite3
+import normalizar
+
 
 def procuraBase(lista):
     out = []  # Lista para armazenar os resultados
@@ -7,10 +9,12 @@ def procuraBase(lista):
     conexao = sqlite3.connect('baseDeDados.db')
     cursor = conexao.cursor()
 
+    for artigo in lista:
+        normalizar(artigo)  # Normalizar o texto do artigo
+        print(artigo)
     # Iterar sobre os artigos na lista
     for artigo in lista:
-        artigo_upper = artigo.upper()  # Transformar o artigo em maiúsculas para consistência
-        print(f"Procurando por: {artigo_upper}")
+        
         
         # Usar LIKE para procurar correspondências no banco de dados
         cursor.execute("SELECT * FROM produtos WHERE UPPER(product_dsc) LIKE ?", (f"%{artigo_upper}%",))
