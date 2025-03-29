@@ -9,7 +9,6 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
     response.headers.add('Access-Control-Allow-Methods', 'POST')
     return response
-# DeekSeek deitou e rolou aqui, não tenho a menor ideia do que ele fez
 
 def load_users():
     users = {}
@@ -22,6 +21,7 @@ def load_users():
     except Exception as e:
         print(f"Erro ao carregar CSV: {e}")
         return {}
+# DeekSeek deitou e rolou aqui, não tenho a menor ideia do que ele fez
 
 @app.route('/api/check-user', methods=['POST', 'OPTIONS'])
 def check_user():
@@ -30,12 +30,12 @@ def check_user():
     
     data = request.get_json()
     if not data:
-        return jsonify({"error": "Dados inválidos"}), 400
+        return jsonify({"error": "Dados inválidos."}), 400
         
     account_number = data.get('accountNumber')
     
     if not account_number:
-        return jsonify({"error": "Número de conta é obrigatório"}), 400
+        return jsonify({"error": "Número de conta é obrigatório."}), 400
     
     users = load_users()
     user = users.get(str(account_number)) # Tô convertendo pra string pra ter certeza que essa brincadeira funciona
