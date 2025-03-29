@@ -73,8 +73,3 @@ def processar_consulta(user_input):
             "resposta": f"Erro na consulta: {str(e)}",
             "produtos_sugeridos": []
         }
-
-# Exemplo de uso:
-if __name__ == "__main__":
-    resultado = processar_consulta("Quero fazer um cozido à portuguesa")
-    print(json.dumps(resultado, indent=2, ensure_ascii=False))
