@@ -148,7 +148,7 @@
             errorElement.textContent = '';
             
             try {
-                const response = await fetch('http://localhost:3000/api/check-user', {
+                const response = await fetch('http://localhost:5000/api/check-user', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -156,14 +156,16 @@
                     body: JSON.stringify({ accountNumber }),
                 });
                 
+                if (!response.ok) {
+                    throw new Error('Erro na resposta do servidor');
+                }
+                
                 const data = await response.json();
                 
                 if (data.exists) {
-                    // Para armazenar os dados da rapaziada
                     localStorage.setItem('chatAccountNumber', accountNumber);
                     localStorage.setItem('chatUserData', JSON.stringify(data.user));
                     
-                    // Vai pro chat, mas precisamos do backend pra ver funcinando aqui, óbvio
                     window.location.href = 'INDEX.html';
                 } else {
                     errorElement.textContent = 'Número de cliente não encontrado';
