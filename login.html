@@ -2,75 +2,112 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Chat Continente</title>
+    <title>Login - Chat Peninsula</title>
     <style>
+        :root {
+            --continente-red: #eb0203;
+            --continente-dark-red: #c40202;
+            --continente-light-gray: #f5f5f5;
+            --continente-dark-gray: #333;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            background-color: var(--continente-light-gray);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
+        
         .login-container {
-            width: 350px;
+            width: 450px;
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             text-align: center;
         }
+        
         .logo {
             width: 100px;
-            margin-bottom: 20px;
+            height: auto;
+            margin-bottom: 25px;
         }
+        
         h1 {
-            color: #eb0203;
+            color: var(--continente-red);
             font-size: 24px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-weight: 700;
         }
+        
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: left;
         }
+        
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: bold;
+            color: var(--continente-dark-gray);
         }
+        
         input[type="text"] {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             box-sizing: border-box;
+            font-size: 16px;
+            transition: all 0.3s;
         }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--continente-red);
+            box-shadow: 0 0 0 2px rgba(235,2,3,0.2);
+        }
+        
         button {
-            background: #eb0203;
+            background: var(--continente-red);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 14px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
             width: 100%;
             margin-bottom: 15px;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
+        
         button:hover {
-            background: #c40202;
+            background: var(--continente-dark-red);
+            transform: translateY(-2px);
         }
+        
         button:disabled {
             background: #cccccc;
             cursor: not-allowed;
+            transform: none;
         }
+        
         .divider {
-            margin: 20px 0;
+            margin: 25px 0;
             text-align: center;
             position: relative;
         }
+        
         .divider::before {
             content: "";
             position: absolute;
@@ -78,20 +115,26 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: #ccc;
+            background: #eee;
             z-index: 1;
         }
+        
         .divider span {
             background: white;
-            padding: 0 10px;
+            padding: 0 15px;
             position: relative;
             z-index: 2;
             color: #666;
+            font-size: 14px;
         }
+        
         .error {
-            color: red;
+            color: var(--continente-red);
             margin-top: 10px;
+            font-size: 14px;
+            min-height: 20px;
         }
+        
         .loading {
             display: inline-block;
             width: 20px;
@@ -100,26 +143,37 @@
             border-radius: 50%;
             border-top-color: white;
             animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
         }
+        
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+        
+        /* Efeitos de transição */
+        .login-container {
+            transition: all 0.3s ease-out;
+        }
+        
+        button {
+            transition: background 0.3s, transform 0.2s;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <img src="https://modelocontinenteb2c.my.salesforce-sites.com/WebformAcelera/resource/1614729023000/LiveChat_logo" alt="Logo Continente" class="logo">
+        <img src="https://modelocontinenteb2c.my.salesforce-sites.com/WebformAcelera/resource/1614729023000/LiveChat_logo" alt="Logo Peninsula" class="logo">
         <h1>Acesse o Chat de Ajuda</h1>
         
         <div class="input-group">
             <label for="account-number">Número de Cliente</label>
-            <input type="text" id="account-number">
+            <input type="text" id="account-number" placeholder="Usuário">
         </div>
+        
         <button id="login-btn">
             <span id="loading-spinner" class="loading" style="display: none;"></span>
             <span id="login-text">Entrar</span>
         </button>
+        
         <div id="error-message" class="error"></div>
         
         <div class="divider">
@@ -151,7 +205,10 @@
             try {
                 const response = await fetch('http://localhost:5000/api/check-user', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
                     body: JSON.stringify({ accountNumber })
                 });
                 
@@ -162,7 +219,6 @@
                 const data = await response.json();
                 
                 if (data.exists) {
-                    // Salva os dados no localStorage
                     localStorage.setItem('chatUserData', JSON.stringify(data.user));
                     window.location.href = 'INDEX.html';
                 } else {
@@ -170,7 +226,7 @@
                 }
             } catch (error) {
                 console.error('Erro:', error);
-                errorElement.textContent = 'Erro ao conectar com o servidor.';
+                errorElement.textContent = 'Erro ao conectar com o servidor. Tente novamente.';
             } finally {
                 spinner.style.display = 'none';
                 loginText.textContent = 'Entrar';
