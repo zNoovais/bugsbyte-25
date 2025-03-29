@@ -2,6 +2,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Ajuda Continente</title>
     <style>
@@ -42,6 +43,31 @@
             height: auto;
             align-items: left;
         }
+
+        .chat-header {
+            background: #eb0203;
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex; /* Use flexbox for alignment */
+            justify-content: space-between; /* Space between elements */
+            align-items: center; /* Center items vertically */
+        }
+        
+        .close a {
+            color: white; /* Make the "X" white */
+            text-decoration: none; /* Remove underline */
+            font-size: 15px; /* Adjust size if needed */
+            margin-left: 140px; /* Push it all the way to the right */
+            cursor: pointer; /* Add a pointer cursor */
+        }
+        
+        .close a:hover {
+            color: #ccc; /* Optional: Change color on hover */
+        }
+
+        
 
         .session-expired {
             background: darkblue;
@@ -115,6 +141,9 @@
     <div class="chat-header">
         <img class="botLogo" src="https://modelocontinenteb2c.my.salesforce-sites.com/WebformAcelera/resource/1614729023000/LiveChat_logo" alt="Logo">
         Ajuda Peninsula
+        <div class="close">
+        <a href="http://127.0.0.1:5500/INDEX.html"><i class="fa-solid fa-xmark"></i></a>
+        </div>
     </div>
     <div class="chat-messages">
         <div class="bot-message">Olá, como posso ajudar?</div>
@@ -140,15 +169,7 @@
                 message.classList.add("user-message");
                 message.textContent = button.textContent;
                 chatMessages.appendChild(message);
-                
-                setTimeout(() => {
-                    const botMessage = document.createElement("div");
-                    botMessage.classList.add("bot-message");
-                    botMessage.textContent = "Recebi sua mensagem, burro do caralho!";
-                    chatMessages.appendChild(botMessage);
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                }, 500);
-                
+              
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             });
         });
@@ -166,15 +187,6 @@
                     message.textContent = textarea.value.trim(); // Add the message text
                     if (message.textContent) { // Only append if the message is not empty
                         chatMessages.appendChild(message);
-                        
-                        setTimeout(() => {
-                            const botMessage = document.createElement("div");
-                            botMessage.classList.add("bot-message");
-                            botMessage.textContent = "Recebi sua mensagem, burro do caralho!";
-                            chatMessages.appendChild(botMessage);
-                            chatMessages.scrollTop = chatMessages.scrollHeight;
-                        }, 500);
-                        
                         chatMessages.scrollTop = chatMessages.scrollHeight;
                         textarea.value = ""; // Clear the textarea
                     }
