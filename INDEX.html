@@ -33,7 +33,7 @@
         }
 
         .chat-header::after {
-            content: "X";
+            content: "";
             font-size: 16px;
             margin-left: auto;
         }
@@ -103,21 +103,80 @@
 </head>
 <body>
 
-<div class="chat-container">
-    <div class="chat-header"><img class="botLogo" src="https://modelocontinenteb2c.my.salesforce-sites.com/WebformAcelera/resource/1614729023000/LiveChat_logo" alt="Logo" c-botchatheader_botchatheader="">Ajuda Peninsula</div>
+    <div class="chat-container">
+    <div class="chat-header">
+        <img class="botLogo" src="https://modelocontinenteb2c.my.salesforce-sites.com/WebformAcelera/resource/1614729023000/LiveChat_logo" alt="Logo">
+        Ajuda Peninsula
+    </div>
     <div class="chat-messages">
-        
+        <a>Ola como posso ajudar?</a>
     </div>
     <div class="buttons">
-        <div class="button">Encomendas Online</div>
-        <div class="button">Cartão Continente associado às Lojas Online</div>
-        <div class="button">2ª Via de fatura Online</div>
-        <div class="button">Folhetos</div>
-        <div class="button">Chamar Assistente virtual</div>
+        <div class="button" hidden>Encomendas Online</div>
+        <div class="button" hidden>Cartão Continente associado às Lojas Online</div>
+        <div class="button" hidden>2ª Via de fatura Online</div>
+        <div class="button" hidden>Folhetos</div>
+        <div class="button" hidden>Chamar Assistente virtual</div>
     </div>
-    <textarea name="Message"  rows="1" placeholder="Escreve uma mensagem"></textarea>
+    <form>
+        <textarea name="Message" rows="1" placeholder="Escreve uma mensagem"></textarea>
+    </form>
 </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const textarea = document.querySelector("textarea");
+            const form = document.querySelector("form");
+    
+            textarea.addEventListener("keydown", function (event) {
+                if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault(); // Prevent a new line
+                    form.submit(); // Submit the form
+                }
+            });
+        });
+    </script>
+    <script>
+        const buttons = document.querySelectorAll(".button");
+        const chatMessages = document.querySelector(".chat-messages");
 
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                const message = document.createElement("div");
+                message.classList.add("user-message");
+                message.textContent = button.textContent;
+                chatMessages.appendChild(message);
+                chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
+            });
+        });
+    </script>
+    <script>
+        // Ensure buttons are visible by removing the 'hidden' attribute dynamically
+        window.onload = function() {
+            const buttons = document.querySelectorAll(".button");
+
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const textarea = document.querySelector("textarea");
+            const chatMessages = document.querySelector(".chat-messages");
+    
+            textarea.addEventListener("keydown", function (event) {
+                if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault(); // Prevent a new line
+                    const message = document.createElement("div");
+                    message.classList.add("user-message");
+                    message.textContent = textarea.value.trim(); // Add the message text
+                    if (message.textContent) { // Only append if the message is not empty
+                        chatMessages.appendChild(message);
+                        chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
+                        textarea.value = ""; // Clear the textarea
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
+
 
