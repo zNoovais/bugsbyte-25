@@ -33,7 +33,7 @@
         }
 
         .chat-header::after {
-            content: "▼";
+            content: "X";
             font-size: 16px;
             margin-left: auto;
         }
@@ -87,27 +87,26 @@
             background: #f0f0f0;
         }
 
-        .close-chat {
-            background: red;
-            color: white;
+    textarea {
+            width: 85%;
             padding: 10px;
-            text-align: center;
-            font-weight: bold;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            margin: 10px;
-            cursor: pointer;
+            margin: 10px 15px;
+            resize: none;
         }
 
-        .close-chat:hover {
-            background: darkred;
+        .textarea:hover {
+            background: rgb(107, 107, 107);
         }
     </style>
 </head>
 <body>
 
 <div class="chat-container">
-    <div class="chat-header"> <img class="botLogo" src="https://modelocontinenteb2c.my.salesforce-sites.com/WebformAcelera/resource/1614729023000/LiveChat_logo" alt="Logo" c-botchatheader_botchatheader="">Ajuda Peninsula</div>
+    <div class="chat-header"><img class="botLogo" src="https://modelocontinenteb2c.my.salesforce-sites.com/WebformAcelera/resource/1614729023000/LiveChat_logo" alt="Logo" c-botchatheader_botchatheader="">Ajuda Peninsula</div>
     <div class="chat-messages">
+        
     </div>
     <div class="buttons">
         <div class="button">Encomendas Online</div>
@@ -116,8 +115,9 @@
         <div class="button">Folhetos</div>
         <div class="button">Chamar Assistente virtual</div>
     </div>
-    <div class="close-chat">Fechar conversa</div>
+    <textarea name="Message"  rows="1" placeholder="Escreve uma mensagem"></textarea>
 </div>
 
 </body>
 </html>
+
