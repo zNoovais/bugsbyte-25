@@ -1,0 +1,81 @@
+[
+  {
+    "problema": "eu quero fazer uma sandwich",
+    "tipo": "culinária",
+    "solucao": "Para fazer um sanduíche simples, comece escolhendo dois pedaços de pão. Espalhe manteiga ou maionese em um dos lados, adicione o recheio desejado (como presunto, queijo, alface e tomate) e finalize com o outro pedaço de pão. Corte ao meio se preferir e sirva.",
+    "materiais": [
+      {
+        "nome": "pão (de sua escolha)",
+        "opcional": false,
+        "selecionado": true
+      },
+      {
+        "nome": "manteiga ou maionese",
+        "opcional": false,
+        "selecionado": true
+      },
+      {
+        "nome": "presunto",
+        "opcional": false,
+        "selecionado": true
+      },
+      {
+        "nome": "queijo",
+        "opcional": false,
+        "selecionado": true
+      },
+      {
+        "nome": "alface",
+        "opcional": false,
+        "selecionado": true
+      },
+      {
+        "nome": "tomate",
+        "opcional": true,
+        "selecionado": false
+      },
+      {
+        "nome": "outros recheios .",
+        "opcional": true,
+        "selecionado": false
+      },
+      {
+        "nome": "peru",
+        "opcional": false,
+        "selecionado": true
+      }
+    ]
+  },
+  {
+    "problema": "eu tenho um gato",
+    "tipo": "geral",
+    "solucao": "Para cuidar do meu gato, é importante garantir um ambiente seguro, alimentação adequada e atenção diária.",
+    "materiais": [
+      {
+        "nome": "ração de gato",
+        "opcional": false,
+        "selecionado": true
+      },
+      {
+        "nome": "água fresca",
+        "opcional": false,
+        "selecionado": true
+      },
+      {
+        "nome": "caixa de areia",
+        "opcional": false,
+        "selecionado": true
+      },
+      {
+        "nome": "brinquedos",
+        "opcional": true,
+        "selecionado": false
+      },
+      {
+        "nome": "arranhador",
+        "opcional": true,
+        "selecionado": false
+      }
+    ]
+  }
+]
