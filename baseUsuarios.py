@@ -1,5 +1,7 @@
 import pandas as pd
 import sqlite3
+import normalizar
+
 
 # Tabela 1: Carregar o primeiro arquivo CSV
 try:
