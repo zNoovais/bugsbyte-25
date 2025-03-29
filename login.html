@@ -114,7 +114,7 @@
         
         <div class="input-group">
             <label for="account-number">Número de Cliente</label>
-            <input type="text" id="account-number" placeholder="Digite seu número de cliente">
+            <input type="text" id="account-number" placeholder="Ex: 839901046294">
         </div>
         <button id="login-btn">
             <span id="loading-spinner" class="loading" style="display: none;"></span>
@@ -130,7 +130,7 @@
     </div>
 
     <script>
-        document.getElementById('login-btn').addEventListener('click', async function() {
+        document.getElementById('login-btn').addEventListener('click', async () => {
             const accountNumber = document.getElementById('account-number').value.trim();
             const errorElement = document.getElementById('error-message');
             const loginBtn = document.getElementById('login-btn');
@@ -142,6 +142,7 @@
                 return;
             }
             
+            // Mostra loading
             spinner.style.display = 'inline-block';
             loginText.textContent = 'Verificando...';
             loginBtn.disabled = true;
@@ -150,10 +151,8 @@
             try {
                 const response = await fetch('http://localhost:5000/api/check-user', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ accountNumber }),
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ accountNumber })
                 });
                 
                 if (!response.ok) {
@@ -163,16 +162,15 @@
                 const data = await response.json();
                 
                 if (data.exists) {
-                    localStorage.setItem('chatAccountNumber', accountNumber);
+                    // Salva os dados no localStorage
                     localStorage.setItem('chatUserData', JSON.stringify(data.user));
-                    
                     window.location.href = 'INDEX.html';
                 } else {
-                    errorElement.textContent = 'Número de cliente não encontrado';
+                    errorElement.textContent = 'Número não cadastrado!';
                 }
             } catch (error) {
                 console.error('Erro:', error);
-                errorElement.textContent = 'Erro ao verificar o número de cliente. Tente novamente.';
+                errorElement.textContent = 'Erro ao conectar com o servidor.';
             } finally {
                 spinner.style.display = 'none';
                 loginText.textContent = 'Entrar';
@@ -180,10 +178,8 @@
             }
         });
 
-        document.getElementById('guest-btn').addEventListener('click', function() {
-            localStorage.removeItem('chatAccountNumber');
+        document.getElementById('guest-btn').addEventListener('click', () => {
             localStorage.removeItem('chatUserData');
-            
             window.location.href = 'INDEX.html';
         });
     </script>
