@@ -67,6 +67,14 @@
             align-self: flex-end;
         }
 
+        .bot-message {
+            background: #f0f0f0;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            align-self: flex-start;
+        }
+
         .buttons {
             display: flex;
             flex-direction: column;
@@ -87,7 +95,7 @@
             background: #f0f0f0;
         }
 
-    textarea {
+        textarea {
             width: 85%;
             padding: 10px;
             border: 1px solid #ccc;
@@ -109,7 +117,7 @@
         Ajuda Peninsula
     </div>
     <div class="chat-messages">
-        <a>Ola como posso ajudar?</a>
+        <div class="bot-message">Olá, como posso ajudar?</div>
     </div>
     <div class="buttons">
         <div class="button" hidden>Encomendas Online</div>
@@ -123,19 +131,6 @@
     </form>
 </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const textarea = document.querySelector("textarea");
-            const form = document.querySelector("form");
-    
-            textarea.addEventListener("keydown", function (event) {
-                if (event.key === "Enter" && !event.shiftKey) {
-                    event.preventDefault(); // Prevent a new line
-                    form.submit(); // Submit the form
-                }
-            });
-        });
-    </script>
-    <script>
         const buttons = document.querySelectorAll(".button");
         const chatMessages = document.querySelector(".chat-messages");
 
@@ -145,16 +140,18 @@
                 message.classList.add("user-message");
                 message.textContent = button.textContent;
                 chatMessages.appendChild(message);
-                chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
+                
+                setTimeout(() => {
+                    const botMessage = document.createElement("div");
+                    botMessage.classList.add("bot-message");
+                    botMessage.textContent = "Recebi sua mensagem, burro do caralho!";
+                    chatMessages.appendChild(botMessage);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 500);
+                
+                chatMessages.scrollTop = chatMessages.scrollHeight;
             });
         });
-    </script>
-    <script>
-        // Ensure buttons are visible by removing the 'hidden' attribute dynamically
-        window.onload = function() {
-            const buttons = document.querySelectorAll(".button");
-
-        }
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -169,7 +166,16 @@
                     message.textContent = textarea.value.trim(); // Add the message text
                     if (message.textContent) { // Only append if the message is not empty
                         chatMessages.appendChild(message);
-                        chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
+                        
+                        setTimeout(() => {
+                            const botMessage = document.createElement("div");
+                            botMessage.classList.add("bot-message");
+                            botMessage.textContent = "Recebi sua mensagem, burro do caralho!";
+                            chatMessages.appendChild(botMessage);
+                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                        }, 500);
+                        
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
                         textarea.value = ""; // Clear the textarea
                     }
                 }
@@ -178,5 +184,3 @@
     </script>
 </body>
 </html>
-
-
