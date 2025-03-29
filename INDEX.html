@@ -142,7 +142,9 @@
         <img class="botLogo" src="https://modelocontinenteb2c.my.salesforce-sites.com/WebformAcelera/resource/1614729023000/LiveChat_logo" alt="Logo">
         Ajuda Peninsula
         <div class="close">
-        <a href="http://127.0.0.1:5500/INDEX.html"><i class="fa-solid fa-xmark"></i></a>
+            <a href="#" id="refresh-button">
+                <i class="fa-solid fa-rotate-right"></i>
+            </a>
         </div>
     </div>
     <div class="chat-messages">
@@ -192,6 +194,21 @@
                     }
                 }
             });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const refreshButton = document.getElementById("refresh-button");
+    
+            // Add click event to refresh the page
+            refreshButton.addEventListener("click", function (event) {
+                event.preventDefault(); // Prevent default link behavior
+                location.reload(); // Refresh the page
+            });
+        });
+    </script>
+</body>
+</html>
         });
     </script>
 </body>
