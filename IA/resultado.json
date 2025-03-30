@@ -1,0 +1,21 @@
+{
+    "pergunta": "Quais produtos preciso para fazer uma feijoada?",
+    "resposta": "Para fazer uma feijoada rica e saborosa, precisas de alguns ingredientes essenciais. Aqui estão os produtos que precisas:",
+    "detalhes": {
+        "produtos_sugeridos": [
+            "feijão preto",
+            "carne de porco (costela, língua, lombo)",
+            "chouriço",
+            "morcela",
+            "cebola",
+            "alho",
+            "massa de pimentão",
+            "folha de louro",
+            "sal",
+            "pimenta",
+            "arroz",
+            "lima",
+            "salsa"
+        ]
+    }
+}
