@@ -38,7 +38,7 @@ def procuraBase(lista):
 
     return out  # Retornar os resultados encontrados
 
-
+'''
 # Lista de artigos para procurar
 artigos2 = [
     "feijao preto",
@@ -57,7 +57,10 @@ artigos2 = [
     "Ines Trovisco"
 ]
 
+
+
 # Executar a função e imprimir os resultados
 resultados = procuraBase(artigos2)
 print("Resultados encontrados:")
-print(resultados)
+print(resultados)'
+'''

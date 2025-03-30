@@ -99,7 +99,9 @@ def salvar_em_json(dados, arquivo="resultado.json"):
         print(f"Erro ao salvar os dados: {e}")
 
 # Exemplo de uso
-if __name__ == "__main__":
-    consulta = "Quais produtos preciso para fazer uma feijoada?"
-    resultado = processar_consulta(consulta)
+def chat_bot(pergunta):
+
+   
+    resultado = processar_consulta(pergunta)
     salvar_em_json(resultado, "resultado.json")
+    return resultado
