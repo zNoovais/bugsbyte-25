@@ -1,7 +1,18 @@
 from fastapi import FastAPI
+from fastapi.responses import FileResponse  
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+import os
 
 app = FastAPI()
+
+# Servir arquivos estáticos (frontend)
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Servir o arquivo index.html na raiz
+@app.get("/")
+def read_root():
+    return FileResponse(os.path.join("static", "index.html"))
 
 # Modelo para definir o input esperado do frontend
 class InputData(BaseModel):

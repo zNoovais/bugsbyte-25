@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Ajuda Continente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            width: 350px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .chat-container {
+            width: 350px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            /* Smooth animation */
+            max-height: 400px;
+            /* Default height (adjust as needed) */
+            opacity: 1;
+            /* Fully visible */
+        }
+
+        .chat-container.hidden {
+            max-height: 50px;
+            /* Only show the header */
+            opacity: 1;
+            /* Keep the header visible */
+            overflow: hidden;
+            /* Hide content below the header */
+        }
+
+        .chat-header {
+            background: #eb0203;
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header::after {
+            content: "";
+            font-size: 16px;
+            margin-left: auto;
+        }
+
+        .botLogo {
+            width: 10%;
+            height: auto;
+            align-items: left;
+        }
+
+        .chat-header {
+            background: #eb0203;
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            /* Use flexbox for alignment */
+            justify-content: space-between;
+            /* Space between elements */
+            align-items: center;
+            /* Center items vertically */
+        }
+
+        .close {
+            display: flex;
+            /* Use flexbox to align items side by side */
+            gap: 10px;
+            /* Add spacing between the icons */
+            margin-left: 100px;
+            /* Push the icons to the right */
+            align-items: center;
+            /* Vertically center the icons */
+        }
+
+        .close a {
+            color: white;
+            /* Make the icons white */
+            text-decoration: none;
+            /* Remove underline */
+            font-size: 18px;
+            /* Set the size of the icons */
+            cursor: pointer;
+            /* Add a pointer cursor */
+        }
+
+        .close a:hover {
+            color: #ccc;
+            /* Optional: Change color on hover */
+        }
+
+        .session-expired {
+            background: darkblue;
+            color: white;
+            text-align: center;
+            font-size: 14px;
+            padding: 10px;
+            margin: 0;
+            /* Remove extra margin */
+            border-radius: 0;
+            /* No rounded corners */
+            font-weight: bold;
+        }
+
+        #close-chat {
+            background: #eb0203;
+            /* Red background */
+            color: white;
+            /* White text */
+            border: none;
+            /* Remove border */
+            padding: 10px 20px;
+            /* Add padding for better spacing */
+            border-radius: 5px;
+            /* Rounded corners */
+            cursor: pointer;
+            /* Pointer cursor */
+            font-size: 16px;
+            /* Adjust font size */
+            text-align: center;
+            /* Center the text */
+            width: 100%;
+            /* Make the button full width */
+            margin-top: 10px;
+            /* Add spacing above the button */
+        }
+
+        #close-chat:hover {
+            background: #d00000;
+            /* Darker red on hover */
+        }
+
+        .chat-messages {
+            padding: 10px;
+            height: 250px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-message {
+            background: #e6e6e6;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            align-self: flex-end;
+        }
+
+        .bot-message {
+            background: #f0f0f0;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            align-self: flex-start;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        .button {
+            background: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px 0;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #f0f0f0;
+        }
+
+        textarea {
+            width: 85%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px 15px;
+            resize: none;
+        }
+
+        .textarea:hover {
+            background: rgb(107, 107, 107);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header">
+            <img class="botLogo"
+                src="https://modelocontinenteb2c.my.salesforce-sites.com/WebformAcelera/resource/1614729023000/LiveChat_logo"
+                alt="Logo">
+            Ajuda Peninsula
+            <div class="close">
+                <a href="#" id="pop-down-button">
+                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                </a>
+                <a href="#" id="refresh-button">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="chat-messages">
+            <div class="bot-message">Olá, como posso ajudar?</div>
+        </div>
+        <div class="buttons">
+            <div class="button" hidden>Encomendas Online</div>
+            <div class="button" hidden>Cartão Continente associado às Lojas Online</div>
+            <div class="button" hidden>2ª Via de fatura Online</div>
+            <div class="button" hidden>Folhetos</div>
+            <div class="button" hidden>Chamar Assistente virtual</div>
+        </div>
+        <form>
+            <textarea name="Message" rows="1" placeholder="Escreve uma mensagem"></textarea>
+        </form>
+    </div>
+    <script>
+        const buttons = document.querySelectorAll(".button");
+        const chatMessages = document.querySelector(".chat-messages");
+
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                const message = document.createElement("div");
+                message.classList.add("user-message");
+                message.textContent = button.textContent;
+                chatMessages.appendChild(message);
+
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const textarea = document.querySelector("textarea");
+            const chatMessages = document.querySelector(".chat-messages");
+
+            textarea.addEventListener("keydown", function (event) {
+                if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault(); // Prevent a new line
+                    const message = document.createElement("div");
+                    message.classList.add("user-message");
+                    message.textContent = textarea.value.trim(); // Add the message text
+                    string = message.textContent;
+                    if (string) { // Only append if the message is not empty
+                        chatMessages.appendChild(message);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        textarea.value = ""; // Clear the textarea
+                        //envia a mensagem para o backend 
+                        const response = enviarTexto(string);
+                        console.log(response);
+                        response.then(res => {
+                            const botMessage = document.createElement("div");
+                            botMessage.classList.add("bot-message");
+                            botMessage.textContent = res; // Add the response text
+                            chatMessages.appendChild(botMessage);
+                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const refreshButton = document.getElementById("refresh-button");
+
+            // Add click event to refresh the page
+            refreshButton.addEventListener("click", function (event) {
+                event.preventDefault(); // Prevent default link behavior
+                location.reload(); // Refresh the page
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const popDownButton = document.getElementById("pop-down-button");
+            const chatContainer = document.getElementById("chat-container");
+
+            // Add click event to toggle the chat container visibility
+            popDownButton.addEventListener("click", function (event) {
+                event.preventDefault(); // Prevent default link behavior
+                chatContainer.classList.toggle("hidden"); // Toggle the "hidden" class
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const textarea = document.querySelector("textarea");
+            const chatMessages = document.querySelector(".chat-messages");
+            const chatContainer = document.getElementById("chat-container");
+            let inactivityTimeout;
+
+            // Function to show the inactivity warning
+            function showInactivityWarning() {
+                // Add the warning message
+                const warningMessage = document.createElement("div");
+                warningMessage.classList.add("session-expired");
+                warningMessage.textContent = "A sua sessão expirou devido a inatividade";
+                chatContainer.insertBefore(warningMessage, chatMessages);
+
+                // Replace the textarea with a "Fechar Conversa" button
+                const form = document.querySelector("form");
+                form.innerHTML = `
+                    <button id="close-chat">Fechar Conversa</button>
+                `;
+
+                // Add event listener to the "Fechar Conversa" button
+                const closeChatButton = document.getElementById("close-chat");
+                closeChatButton.addEventListener("click", function () {
+                    chatContainer.innerHTML = ""; // Clear the chat container
+                    alert("Conversa encerrada.");
+                });
+            }
+
+            // Reset inactivity timer
+            function resetInactivityTimer() {
+                clearTimeout(inactivityTimeout);
+                inactivityTimeout = setTimeout(showInactivityWarning, 60000); // 1 minute of inactivity
+            }
+
+            // Detect user activity
+            textarea.addEventListener("keydown", resetInactivityTimer);
+            chatContainer.addEventListener("mousemove", resetInactivityTimer);
+            chatContainer.addEventListener("click", resetInactivityTimer);
+
+            // Start the inactivity timer
+            resetInactivityTimer();
+        });
+    </script>
+    <script>
+        async function enviarTexto(string) {
+            const resposta = await fetch("/process", { // URL relativo
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ text: string })
+            });
+
+            if (!resposta.ok) {
+                throw new Error(`Erro na API: ${resposta.status}`);
+            }
+
+            const dados = await resposta.json();
+            return dados.response;
+        }
+    </script>
+</body>
+
+</html>
